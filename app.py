@@ -30,7 +30,7 @@ def upload():
         result = DeepFace.find(
             img_path=filename,
             db_path=KNOWN_FOLDER,
-            model_name="VGG-Face",
+            model_name="Facenet",
             enforce_detection=False
         )
 
