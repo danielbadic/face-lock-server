@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import os
 from datetime import datetime
 from deepface import DeepFace
+from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -43,3 +44,13 @@ def upload():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
+@app.route('/gallery')
+def gallery():
+    files = os.listdir(UPLOAD_FOLDER)
+    links = [f"<a href='/uploads/{f}' target='_blank'>{f}</a>" for f in files]
+    return "<br>".join(links)
