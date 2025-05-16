@@ -1,8 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import os
 from datetime import datetime
 from deepface import DeepFace
-from flask import send_from_directory
 
 app = Flask(__name__)
 
@@ -31,6 +30,7 @@ def upload():
             img_path=filename,
             db_path=KNOWN_FOLDER,
             model_name="VGG-Face",
+            detector_backend="opencv",  # 🔄 RAM-friendly
             enforce_detection=False
         )
 
@@ -42,9 +42,6 @@ def upload():
         print(f"[❌ EROARE] {str(e)}")
         return jsonify({"access_granted": False, "error": str(e)}), 500
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
@@ -54,3 +51,7 @@ def gallery():
     files = os.listdir(UPLOAD_FOLDER)
     links = [f"<a href='/uploads/{f}' target='_blank'>{f}</a>" for f in files]
     return "<br>".join(links)
+
+# ⬇️ Doar asta rămâne aici
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
