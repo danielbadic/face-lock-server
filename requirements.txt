@@ -1,4 +1,4 @@
 flask
 deepface
 opencv-python-headless
-gunicorn
+tensorflow
