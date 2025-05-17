@@ -1,3 +1,6 @@
-__pycache__/
-.venv/
 uploads/
+known_faces/
+__pycache__/
+*.pyc
+instance/
+.env
