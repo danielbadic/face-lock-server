@@ -59,4 +59,4 @@ def gallery():
     return "<h2>Galerie vizitatori</h2>" + "<br>".join(links)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
